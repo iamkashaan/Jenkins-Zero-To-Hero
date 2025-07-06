@@ -1,25 +1,355 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>
-    <link data-th-href="@{/css/main.css?{id}(id=${timestamp})}" rel="stylesheet">
-    <title>CI/CD Master Class By Abhishek Veeramalla</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpringBoot Enterprise</title>
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" as="style">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #68d391;
+            --secondary: #2d3748;
+            --accent: #f6ad55;
+            --dark: #1a202c;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--secondary);
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, rgba(104, 211, 145, 0.1) 0%, rgba(246, 173, 85, 0.05) 100%);
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .nav-link::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s;
+            position: absolute;
+            bottom: -2px;
+        }
+        
+        .feature-card:hover {
+            box-shadow: 0 5px 15px -3px rgba(0,0,0,0.1);
+        }
+        
+        .spring-icon {
+            transform: scale(1);
+        }
+        
+        .code-block {
+            font-family: 'Courier New', monospace;
+            background-color: #2d3748;
+            color: #f8fafc;
+            border-radius: 0.5rem;
+            position: relative;
+        }
+        
+        .code-block {
+            background-color: #2d3748;
+            color: #f8fafc;
+            border-radius: 0.5rem;
+        }
+    </style>
 </head>
-<body>
+<body class="bg-white">
+    <!-- Navigation -->
+    <nav class="fixed w-full bg-white shadow-sm z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center">
+                    <span class="spring-icon text-2xl text-green-500 mr-2">
+                        <i class="fas fa-leaf"></i>
+                    </span>
+                    <a href="#" class="text-xl font-bold text-gray-900">Spring<span class="text-green-500">Boot</span></a>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#features" class="nav-link text-sm font-medium text-gray-700">Features</a>
+                    <a href="#docs" class="nav-link text-sm font-medium text-gray-700">Documentation</a>
+                    <a href="#examples" class="nav-link text-sm font-medium text-gray-700">Examples</a>
+                    <a href="#start" class="px-4 py-2 bg-green-500 text-white text-sm font-medium rounded-md hover:bg-green-600 transition-colors">
+                        Get Started
+                    </a>
+                </div>
+                <div class="md:hidden">
+                    <button class="text-gray-500 focus:outline-none" id="mobile-menu-button">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
 
-<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-    <a class="navbar-brand" href="#">Ultimate CI/CD Pipeline using Java</div></a>
-</nav>
+    <!-- Hero Section -->
+    <section class="pt-32 pb-20 gradient-bg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0">
+                    <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+                        Build <span class="text-green-500">Enterprise</span> Apps Faster
+                    </h1>
+                    <p class="text-xl text-gray-600 mb-8 max-w-xl">
+                        Spring Boot makes it easy to create stand-alone, production-grade Spring-based Applications that you can "just run".
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#start" class="px-6 py-3 bg-green-500 text-white font-medium rounded-md hover:bg-green-600 transition-colors">
+                            Get Started
+                        </a>
+                        <a href="#features" class="px-6 py-3 border border-gray-300 text-gray-700 font-medium rounded-md hover:bg-gray-50 transition-colors">
+                            Learn More
+                        </a>
+                    </div>
+                </div>
+                <div class="md:w-1/2 flex justify-center">
+                    <div class="relative w-full max-w-md">
+                        <div class="absolute -top-8 -right-8 w-32 h-32 bg-green-200 rounded-full opacity-50"></div>
+                        <div class="absolute -bottom-8 -left-8 w-32 h-32 bg-yellow-200 rounded-full opacity-50"></div>
+                        <div class="relative bg-white p-8 rounded-xl shadow-xl">
+                            <div class="code-block p-6">
+                                <div class="flex mb-4">
+                                    <div class="w-3 h-3 rounded-full bg-red-500 mr-2"></div>
+                                    <div class="w-3 h-3 rounded-full bg-yellow-500 mr-2"></div>
+                                    <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                                </div>
+                                <pre class="text-sm">
+<span class="text-purple-500">@SpringBootApplication</span>
+<span class="text-blue-500">public class</span> <span class="text-yellow-400">DemoApplication</span> {
 
-<main role="main" class="container">
-    <div class="starter-template">
-        <h1 th:text="${title}">Default title.</h1>
-        <p th:text="${msg}">Default text.</p>
-    </div>
-</main>
+    <span class="text-blue-500">public static void</span> <span class="text-green-400">main</span>(String[] args) {
+        <span class="text-yellow-400">SpringApplication</span>.run(<span class="text-yellow-400">DemoApplication</span>.class, args);
+    }
 
-<script data-th-src="@{/js/main.js}"></script>
-</body>
+    <span class="text-blue-500">@GetMapping</span>(<span class="text-green-500">"/"</span>)
+    <span class="text-blue-500">public</span> String <span class="text-green-400">home</span>() {
+        <span class="text-blue-500">return</span> <span class="text-green-500">"Hello, Spring Boot!"</span>;
+    }
+}</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <!-- Features Section -->
+    <section id="features" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Why <span class="text-green-500">Spring Boot</span>?</h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    Get productive quickly with these powerful features
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="feature-card bg-white p-8 rounded-xl shadow-md transition-transform duration-300">
+                    <div class="text-green-500 text-4xl mb-6">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Standalone</h3>
+                    <p class="text-gray-600">
+                        No need for an external web server. Just run your application as plain Java with an embedded server.
+                    </p>
+                </div>
+                
+                <!-- Feature 2 -->
+                <div class="feature-card bg-white p-8 rounded-xl shadow-md transition-transform duration-300">
+                    <div class="text-green-500 text-4xl mb-6">
+                        <i class="fas fa-sliders-h"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Opinionated</h3>
+                    <p class="text-gray-600">
+                        Gets you started quickly with default configurations that follow best practices.
+                    </p>
+                </div>
+                
+                <!-- Feature 3 -->
+                <div class="feature-card bg-white p-8 rounded-xl shadow-md transition-transform duration-300">
+                    <div class="text-green-500 text-4xl mb-6">
+                        <i class="fas fa-plug"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Production Ready</h3>
+                    <p class="text-gray-600">
+                        Includes health checks, metrics, externalized configuration and more out of the box.
+                    </p>
+                </div>
+                
+                <!-- Feature 4 -->
+                <div class="feature-card bg-white p-8 rounded-xl shadow-md transition-transform duration-300">
+                    <div class="text-green-500 text-4xl mb-6">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Tools</h3>
+                    <p class="text-gray-600">
+                        Comes with CLI and IDE plugins to boost productivity during development.
+                    </p>
+                </div>
+                
+                <!-- Feature 5 -->
+                <div class="feature-card bg-white p-8 rounded-xl shadow-md transition-transform duration-300">
+                    <div class="text-green-500 text-4xl mb-6">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Security</h3>
+                    <p class="text-gray-600">
+                        Easy to integrate with Spring Security for robust authentication and authorization.
+                    </p>
+                </div>
+                
+                <!-- Feature 6 -->
+                <div class="feature-card bg-white p-8 rounded-xl shadow-md transition-transform duration-300">
+                    <div class="text-green-500 text-4xl mb-6">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Data</h3>
+                    <p class="text-gray-600">
+                        Works seamlessly with JDBC, JPA, MongoDB, Redis and other popular data technologies.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Start Section -->
+    <section id="start" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Get Started in <span class="text-green-500">Minutes</span></h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    Ready to start building your Spring Boot application?
+                </p>
+            </div>
+            
+            <div class="flex flex-col md:flex-row gap-12">
+                <div class="md:w-1/2">
+                    <div class="bg-white p-8 rounded-xl shadow-lg">
+                        <h3 class="text-xl font-bold text-gray-900 mb-4">Using Spring Initializr</h3>
+                        <p class="text-gray-600 mb-6">
+                            Generate a new project with just what you need:
+                        </p>
+                        <div class="code-block p-6 mb-6">
+                            <pre class="text-sm overflow-x-auto">
+<span class="text-blue-500">$</span> <span class="text-gray-400">curl</span> <span class="text-green-500">https://start.spring.io/starter.tgz</span> \<br>  -d dependencies=web,data-jpa \<br>  -d packageName=com.example \<br>  -d name=myapp \<br>  -d javaVersion=17 | tar -xzvf -</pre>
+                        </div>
+                        <p class="text-gray-600 mb-4">
+                            Or visit <a href="https://start.spring.io" class="text-green-500 hover:underline">start.spring.io</a> for a web interface.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="md:w-1/2">
+                    <div class="bg-white p-8 rounded-xl shadow-lg">
+                        <h3 class="text-xl font-bold text-gray-900 mb-4">Manual Setup</h3>
+                        <p class="text-gray-600 mb-4">
+                            1. Add Spring Boot dependencies to your build.gradle or pom.xml
+                        </p>
+                        <div class="code-block p-6 mb-6">
+                            <pre class="text-sm overflow-x-auto">
+<span class="text-gray-400">&lt;!-- Maven --&gt;</span>
+<span class="text-purple-500">&lt;dependency&gt;</span>
+  <span class="text-purple-500">&lt;groupId&gt;</span>org.springframework.boot<span class="text-purple-500">&lt;/groupId&gt;</span>
+  <span class="text-purple-500">&lt;artifactId&gt;</span>spring-boot-starter-web<span class="text-purple-500">&lt;/artifactId&gt;</span>
+<span class="text-purple-500">&lt;/dependency&gt;</span></pre>
+                        </div>
+                        <p class="text-gray-600 mb-4">
+                            2. Create your main application class with @SpringBootApplication
+                        </p>
+                        <p class="text-gray-600">
+                            3. Run with: <code class="bg-gray-100 px-2 py-1 rounded">./mvnw spring-boot:run</code> or <code class="bg-gray-100 px-2 py-1 rounded">./gradlew bootRun</code>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between">
+                <div class="mb-8 md:mb-0">
+                    <div class="flex items-center mb-4">
+                        <span class="spring-icon text-2xl text-green-500 mr-2">
+                            <i class="fas fa-leaf"></i>
+                        </span>
+                        <a href="#" class="text-xl font-bold text-white">Spring<span class="text-green-500">Boot</span></a>
+                    </div>
+                    <p class="text-gray-400 max-w-md">
+                        Opinionated, production-grade Spring applications with minimal configuration.
+                    </p>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-8">
+                    <div>
+                        <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase mb-4">Resources</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Documentation</a></li>
+                            <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Guides</a></li>
+                            <li><a href="#" class="text-gray-300 hover:text-white transition-colors">API Reference</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase mb-4">Community</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-300 hover:text-white transition-colors">GitHub</a></li>
+                            <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Stack Overflow</a></li>
+                            <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Gitter</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase mb-4">Company</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-300 hover:text-white transition-colors">About</a></li>
+                            <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Blog</a></li>
+                            <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Careers</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-8 pt-8 border-t border-gray-700 flex flex-col md:flex-row justify-between">
+                <p class="text-gray-400 text-sm">
+                    &copy; 2023 SpringBoot Enterprise. All rights reserved.
+                </p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    </body>
+<script>
+    // Simple mobile menu toggle loaded last
+    const menuBtn = document.getElementById('mobile-menu-button');
+    if (menuBtn) {
+        menuBtn.addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            if (menu) menu.classList.toggle('hidden');
+        });
+    }
+</script>
 </html>
